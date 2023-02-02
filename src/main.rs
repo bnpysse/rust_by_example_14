@@ -102,7 +102,36 @@ fn main() {
 
     //region 14.3.trait
     println!("\n\n=====14.3.trait=====");
-
-
     //endregion
+
+    //region 14.7.new type惯用法
+    println!("\n\n=====14.7.new type惯用法=====");
+    // 实现一个年龄认证函数，要求必须输入 Years 类型。
+    struct Years(i64);
+    struct Days(i64);
+    impl Years {
+        pub fn to_days(&self) -> Days {
+            Days(self.0 * 365)
+        }
+    }
+    impl Days {
+        pub fn to_years(&self) -> Years {
+            Years(self.0 / 365)
+        }
+    }
+    fn old_enough(age: &Years) -> bool {
+        age.0 >= 18
+    }
+
+    let age = Years(25);
+    let age_days = age.to_days();
+    println!("Old enough {}", old_enough(&age));
+    println!("Old enough {}", old_enough(&age_days.to_years()));
+    //endregion
+
+
+
+
+
+
 }
